@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamburgueria L&M</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./src/style/reset.css">
+    <link rel="stylesheet" href="./src/style/style.css">
+</head>
+<body>
+    <div id="preloader">
+        <img src="./src/img/logo/Logo.png" alt="Logo da Lanchonete">
+    </div>
+
+    <header class="cabecalho">
+        <div class="avatar-container">
+            <div class="fala">"Bem-Vindos à"</div>
+            <div class="avatar-burger"> <img src="./src/img/logo/Logo.png" alt="logo"> </div>            
+        </div>
+    </header>
+        <div id="popup-alerta">Item adicionado com sucesso!</div>
+    <main>
+        <button class="btn-mostrar" onclick="mostrar('lanches')">🍔 Lanches</button>
+        <section id="lanches" class="categoria menu">
+            <h2>Lanches</h2>
+            <div 
+                class="grid-scroll" id="lista-lanches">                
+            </div>
+        </section>
+
+        <button class="btn-mostrar" onclick="mostrar('salgados')">🥟 Salgados</button>
+        <section id="salgados" class="categoria menu">
+             <h2>Salgados</h2>
+                <div
+                    class="grid-scroll" id="lista-salgados">                  
+                </div>    
+        </section>
+
+        <button class="btn-mostrar" onclick="mostrar('pastel')">🌮 Pastel</button>
+        <section id="pastel" class="categoria menu">
+             <h2>Pastel</h2>                                 
+                    <div class="item">
+                        <p>Escolha seus sabores:</p>
+                        <div class="sabores">
+                            <label><input type="checkbox" value="Frango"> Frango</label>
+                            <label><input type="checkbox" value="Carne"> Carne</label>
+                            <label><input type="checkbox" value="Queijo"> Queijo</label>
+                            <label><input type="checkbox" value="Calabresa"> Calabresa</label>
+                        </div>
+                         <p id="preco-pastel">Valor: R$ 10,00</p> <!-- preço atualizado -->
+                        <button onclick="adicionarPastel()">Adicionar Pastel</button>
+                    </div>             
+        </section>
+        
+        <button class="btn-mostrar" onclick="mostrar('adicionais')">🧀 Adicionais</button>
+        <section id="adicionais" class="categoria menu">
+            <h2>Adicionais</h2>
+            <div 
+                class="grid-scroll" id="lista-adicionais">               
+            </div>  
+        </section>    
+         
+        <button class="btn-mostrar" onclick="mostrar('bebidas')">🥤 Bebidas</button>
+        <section id="bebidas" class="categoria menu">
+             <h2>Bebidas</h2>
+            <div 
+                class="grid-scroll"  id="lista-bebidas">               
+            </div>
+        </section>
+
+        <section class="carrinho">
+            <h2>🛒 Carrinho</h2>
+            <ul id="lista-carrinho"></ul>
+            <p id="total">Total: R$ 0,00</p>
+
+              <div class="tipo-container">
+                <button class="tipo-opcao" onclick="definirTipo('retirar')">🏃‍♂️ Retirar</button>
+                <button class="tipo-opcao" onclick="definirTipo('entregar')">🏍️💨 Entrega</button>
+                <button class="tipo-opcao" onclick="definirTipo('comer')">🍽️ Comer no local</button>
+              </div>
+                <input type="hidden" id="tipo-pedido" value="retirar">
+
+            <button class="btn-finalizar" onclick="abrirModal()">Finalizar Pedido no WhatsApp</button>
+        </section>
+        <div id="modal-pedido" class="modal-overlay">
+            <div class="modal-conteudo">
+                <h3>📋 Finalizar Pedido</h3>
+
+                <label>Nome:</label>
+                <input type="text" id="input-nome" required>
+
+                <label>Telefone:</label>
+                <input type="text" id="input-telefone" required>
+
+                <div id="campo-endereco" style="display: none;">
+                <label>Endereço:</label>
+                <input type="text" id="input-endereco">
+                </div>
+
+                <label>Forma de pagamento:</label>
+                <select id="input-pagamento">
+                <option value="Pix">Pix</option>
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="Cartão">Cartão</option>
+                </select>
+
+                <div id="campo-troco" style="display: none;">
+                <label>Troco para quanto?</label>
+                <input type="number" id="input-troco">
+                </div>
+
+                <button class="btn-adicionar" onclick="enviarPedido()">✅ Enviar Pedido</button>
+                <button class="btn-remover" onclick="fecharModal()">❌ Cancelar</button>
+            </div>
+        </div>
+        <section id="fundo-admin" style="display: none; position: fixed; top: 0; left: 0; 
+                width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000;">
+            
+            <div id="janela-admin" style="background: white; max-width: 500px; margin: 60px auto; padding: 20px;
+                border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative;">
+
+                <button onclick="fecharPainelAdmin()" style="position: absolute; top: 10px; right: 10px;
+                font-size: 1.2rem; border: none; background: none; cursor: pointer;">❌</button>
+
+                <!-- PAINEL DE SENHA -->
+                <div id="acesso-admin" style="display: block; text-align: center; margin: 15px 0;">
+                <h4>🔐 Acesso ao Painel Administrativo</h4>
+                <input type="password" id="senha-admin" placeholder="Digite a senha..." />
+                <button onclick="validarSenha()">Entrar</button>
+                </div>
+
+                <!-- PAINEL ADMINISTRATIVO -->
+                <div id="area-admin" style="display: none;">
+                <h3>📊 Relatório Administrativo</h3>
+                <p>Número atual da comanda: <span id="comanda-atual">...</span></p>
+                <div id="relatorio-admin" style="white-space: pre-wrap; margin: 15px 0;"></div>
+
+                <button onclick="mostrarRelatorioDia()">🔄 Atualizar Relatório</button>
+                <button onclick="salvarRelatorioPDF()">🧾 Exportar PDF</button>
+                <button onclick="resetarRelatorioDia()">🧹 Resetar Relatório</button>
+                </div>
+            </div>
+        </section>
+
+
+        
+
+    </main>
+
+    <footer class="slogan">
+        <p>Feito com sabor, servido com carinho <span ondblclick="abrirCampoSenha()">🍔</span> ❤️</p>
+    </footer>
+    <footer class="direitos">
+        <p> &copy; 2025 Todos os Direitos reservados </p>
+    </footer>
+
+    <script src="./src/script/script.js" defer></script>
+</body>
+</html>
