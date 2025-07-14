@@ -359,7 +359,7 @@ function salvarPedidoNaPlanilha(comandaID, totalPedido, carrinho) {
     `${item.quantidade}x ${item.nome} — R$ ${item.preco.toFixed(2)}`
   );
 
-  fetch("https://script.google.com/macros/s/AKfycbwBvNYq0FEVRxQ5roN4j9vfgdgTOS1qhK56e53jZ_PVl4rQ5Owk6OoMM-_kFLTHL1an/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbx8aNpOSVxdevLlJD-x3LyXZrPL6XhFjL6NXeVfVGT88RIHN4ImW7RK_3u2jrBpsbHj/exec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
